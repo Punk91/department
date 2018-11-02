@@ -1,8 +1,8 @@
-package ru.example.department.repositories;
+package ru.example.department.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.example.department.model.DepartmentEntity;
+import ru.example.department.model.entity.DepartmentEntity;
 
 import java.util.UUID;
 

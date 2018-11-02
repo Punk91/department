@@ -3,9 +3,9 @@ package ru.example.department.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.example.department.model.DepartmentEntity;
-import ru.example.department.repositories.DepartmentRepository;
-import ru.example.department.repositories.OfficeRepository;
+import ru.example.department.model.entity.DepartmentEntity;
+import ru.example.department.repository.DepartmentRepository;
+import ru.example.department.repository.OfficeRepository;
 import ru.example.department.util.NoEntryException;
 
 import java.util.*;

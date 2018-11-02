@@ -3,8 +3,8 @@ package ru.example.department.schedule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import ru.example.department.model.OfficeEntity;
-import ru.example.department.repositories.OfficeRepository;
+import ru.example.department.model.entity.OfficeEntity;
+import ru.example.department.repository.OfficeRepository;
 import java.util.List;
 
 @Component

@@ -1,6 +1,6 @@
 package ru.example.department.service;
 
-import ru.example.department.model.OfficeEntity;
+import ru.example.department.model.entity.OfficeEntity;
 import ru.example.department.util.NoEntryException;
 
 import java.util.List;

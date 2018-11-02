@@ -27,7 +27,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "ru.example.department.repositories",
+@EnableJpaRepositories(basePackages = "ru.example.department.repository",
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager")
 @EnableTransactionManagement

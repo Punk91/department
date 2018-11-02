@@ -3,7 +3,7 @@ package ru.example.department.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.example.department.model.DepartmentEntity;
+import ru.example.department.model.entity.DepartmentEntity;
 import ru.example.department.service.DepartmentService;
 import ru.example.department.util.CustomErrorType;
 import ru.example.department.util.DConst;
