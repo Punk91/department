@@ -13,7 +13,7 @@ import ru.example.department.repository.specification.BaseSpecification;
 import java.util.LinkedList;
 import java.util.List;
 
-public interface CRUDService<ENTITY, ID> {
+public interface CRUDServiceTest<ENTITY, ID> {
 
 
     default QueryResult<ENTITY> getByParams(ReadRequest readRequest, BaseRepository<ENTITY, ID> repository) {

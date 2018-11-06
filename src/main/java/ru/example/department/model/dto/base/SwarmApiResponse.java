@@ -16,7 +16,7 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"code", "data", "error_msg", "rid"})
 public class SwarmApiResponse<T> {
-    private Integer code = Swarm2BaseResponseCode.OK.getId();
+/*    private Integer code = Swarm2BaseResponseCode.OK.getId();
     private T data;
     @JsonProperty("error_msg")
     private String errorMsg;
@@ -45,5 +45,5 @@ public class SwarmApiResponse<T> {
         SwarmApiResponse apiResponse = new SwarmApiResponse();
         apiResponse.setData(data);
         return apiResponse;
-    }
+    }*/
 }

@@ -11,25 +11,26 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class RestResponse<ENTITY_TYPE> {
+public class RestResponse<DTO> {
 
     private long totalCount;
     private boolean success;
-    private List<ENTITY_TYPE> data;
+    private List<DTO> data;
+    private Integer errorCode;
     private String errorMessage;
 
     public RestResponse() {
     }
 
-    public RestResponse(final ENTITY_TYPE entity) {
+    public RestResponse(final DTO entity) {
         this.totalCount = 1;
         this.success = true;
-        this.data = new ArrayList<ENTITY_TYPE>() {{
+        this.data = new ArrayList<DTO>() {{
             add(entity);
         }};
     }
 
-    public RestResponse(boolean success, long totalCount, List<ENTITY_TYPE> data) {
+    public RestResponse(boolean success, long totalCount, List<DTO> data) {
         this.totalCount = totalCount;
         this.success = success;
         this.data = data;
