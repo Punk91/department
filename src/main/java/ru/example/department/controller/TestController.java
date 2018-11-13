@@ -3,7 +3,7 @@ package ru.example.department.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.example.department.model.dto.TestDto;
-import ru.example.department.model.dto.base.RestResponse;
+import ru.example.department.model.core.RestResponse;
 import ru.example.department.model.entity.TestEntity;
 import ru.example.department.service.TestService;
 import ru.example.department.service.converter.TestDtoEntityConverter;

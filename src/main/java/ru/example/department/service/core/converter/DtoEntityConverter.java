@@ -1,4 +1,4 @@
-package ru.example.department.service.converter.base;
+package ru.example.department.service.core.converter;
 
 import java.util.LinkedList;
 import java.util.List;

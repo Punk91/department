@@ -3,7 +3,7 @@ package ru.example.department.service.converter;
 import org.springframework.stereotype.Service;
 import ru.example.department.model.dto.TestDto;
 import ru.example.department.model.entity.TestEntity;
-import ru.example.department.service.converter.base.DtoEntityConverter;
+import ru.example.department.service.core.converter.DtoEntityConverter;
 
 @Service
 public class TestDtoEntityConverter implements DtoEntityConverter<TestDto, TestEntity> {

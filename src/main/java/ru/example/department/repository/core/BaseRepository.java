@@ -1,4 +1,4 @@
-package ru.example.department.repository;
+package ru.example.department.repository.core;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

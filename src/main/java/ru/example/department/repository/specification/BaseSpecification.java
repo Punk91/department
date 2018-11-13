@@ -3,7 +3,7 @@ package ru.example.department.repository.specification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
-import ru.example.department.model.dto.base.Filter;
+import ru.example.department.model.core.Filter;
 
 import javax.persistence.criteria.*;
 import java.text.ParseException;

@@ -1,4 +1,4 @@
-package ru.example.department.model.dto.base;
+package ru.example.department.model.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

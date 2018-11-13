@@ -1,7 +1,7 @@
-package ru.example.department.service.base;
+package ru.example.department.service.core.crud;
 
-import ru.example.department.model.dto.base.QueryResult;
-import ru.example.department.repository.BaseRepository;
+import ru.example.department.model.core.QueryResult;
+import ru.example.department.repository.core.BaseRepository;
 
 import java.util.List;
 

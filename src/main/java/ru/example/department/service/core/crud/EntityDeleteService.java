@@ -1,4 +1,4 @@
-package ru.example.department.service.base;
+package ru.example.department.service.core.crud;
 
 import javax.servlet.http.HttpSession;
 

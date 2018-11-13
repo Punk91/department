@@ -6,6 +6,7 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import com.google.gson.JsonParser;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,5 +99,10 @@ public class AppConfiguration {
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(emf);
         return txManager;
+    }
+
+    @Bean
+    public JsonParser jsonParser() {
+        return new JsonParser();
     }
 }

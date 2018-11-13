@@ -1,4 +1,4 @@
-package ru.example.department.model.dto.base;
+package ru.example.department.model.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

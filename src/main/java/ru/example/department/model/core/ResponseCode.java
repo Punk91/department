@@ -1,4 +1,4 @@
-package ru.example.department.model.dto.base;
+package ru.example.department.model.core;
 
 public interface ResponseCode {
 
