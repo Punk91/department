@@ -6,6 +6,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import ru.example.department.repository.core.BaseRepository;
 import ru.example.department.service.core.converter.DtoEntityConverter;
 import ru.example.department.service.core.log.LogChanges;
+import ru.example.department.util.CRUDException;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,10 +19,10 @@ public class EntityCreateServiceBase<ENTITY, DTO ,ID> implements EntityCreateSer
     private String entityName;
 
     private static final String USERNAME_PARAM_NAME = "username";
-    private String databaseFlushError            = "Ошибка при сохранении изменений в базе";
-    private String dataIntegrityError            = "Данные не удовлетворяют ограничению целостности.";
-    private String conflictDatabaseFlushError    = "Не удалось сохранить изменения из-за конфликта.";
-    private String paramUniquenessViolationError = "Нарушено требование уникальности параметра при сохранении";
+    private String DATABASE_FLUSH_ERROR = "Ошибка при сохранении изменений в базе";
+    private String DATA_INTEGRITY_ERROR            = "Данные не удовлетворяют ограничению целостности.";
+    private String CONFLICT_DATABASE_FLUSH_ERROR    = "Не удалось сохранить изменения из-за конфликта.";
+    private String PARAM_UNIQUENESS_VIOLATION_ERROR = "Нарушено требование уникальности параметра при сохранении";
 
 
     public EntityCreateServiceBase(BaseRepository<ENTITY, ID> repository, DtoEntityConverter<DTO, ENTITY> dtoEntityConverter, String entityName) {
@@ -31,26 +32,26 @@ public class EntityCreateServiceBase<ENTITY, DTO ,ID> implements EntityCreateSer
     }
 
     @Override
-    public ENTITY create(DTO dto, HttpSession session) {
+    public ENTITY createFromDto(DTO dto, HttpSession session) throws CRUDException {
         DTO createdDto;
         try {
             ENTITY entity = dtoEntityConverter.dtoToEntity(dto);
             ENTITY createdEntity = repository.saveAndFlush(entity);
             createdDto = dtoEntityConverter.entityToDto(createdEntity);
             logChanges.writeChangeLog(entityName, "Создание", (String) session.getAttribute(USERNAME_PARAM_NAME), null,  createdDto);
+            return createdEntity;
         } catch (Exception e) {
             try {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             } catch (Exception e1) {
                 log.error(e1.getMessage());
             }
-            String message = databaseFlushError;
+            String message = DATABASE_FLUSH_ERROR;
             if (e.getMessage() != null && (e.getMessage().contains("unique") || e.getMessage().contains("constraint"))) {
-                message = paramUniquenessViolationError;
+                message = PARAM_UNIQUENESS_VIOLATION_ERROR;
             }
+            throw new CRUDException(message);
         }
-
-        return null;
     }
 
 

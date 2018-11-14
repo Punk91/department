@@ -3,6 +3,7 @@ package ru.example.department.service.core.crud;
 import ru.example.department.model.core.QueryResult;
 import ru.example.department.repository.core.BaseRepository;
 import ru.example.department.service.core.converter.DtoEntityConverter;
+import ru.example.department.util.CRUDException;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
@@ -32,8 +33,8 @@ public abstract class EntityCRUDServiceBase<ENTITY, DTO, ID> implements EntityCR
     }
 
     @Override
-    public ENTITY create(DTO dto, HttpSession session) {
-        return createService.create(dto, session);
+    public ENTITY createFromDto(DTO dto, HttpSession session) throws CRUDException {
+        return createService.createFromDto(dto, session);
     }
 
     @Override

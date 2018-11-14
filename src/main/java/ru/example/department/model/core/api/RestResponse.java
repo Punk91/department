@@ -1,4 +1,4 @@
-package ru.example.department.model.core;
+package ru.example.department.model.core.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,9 +6,6 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @since 17.09.2014
- */
 @Data
 @AllArgsConstructor
 public class RestResponse<DTO> {
