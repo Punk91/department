@@ -47,26 +47,7 @@ public class LogChangesImpl implements LogChanges {
                 JsonObject newObjJson = jsonParser.parse(newObjStr).getAsJsonObject();
                 Set<Map.Entry<String, JsonElement>> entrySet = oldObjJson.entrySet();
                 for (Map.Entry<String, JsonElement> entry : entrySet) {
-                    String key = entry.getKey();
-                    try {
-                        String curOldElem = "";
-                        String curNewElem = "";
-                        if (entry.getValue() != null) {
-                            curOldElem = this.getJsonElementAsString(entry.getValue());
-                        }
-                        JsonElement newJsonElement = newObjJson.get(key);
-
-                        if (newJsonElement != null) {
-                            curNewElem = this.getJsonElementAsString(newJsonElement);
-                        }
-
-                        if (!curOldElem.equals(curNewElem) || "id".equals(key)) {
-                            oldChangedValues.append(key + " = '" + curOldElem + "'").append("\n");
-                            newChangedValues.append(key + " = '" + curNewElem + "'").append("\n");
-                        }
-                    } catch (UnsupportedOperationException e) {
-                        log.error("Unsupported operation exception");
-                    }
+                    this.writeChangedValues(entry, newObjJson, oldChangedValues, newChangedValues);
                 }
             } catch (IllegalStateException e) {
                 log.error("Write log: transform object to json exception", e);
@@ -76,7 +57,10 @@ public class LogChangesImpl implements LogChanges {
         } else {
             newChangedValues = formatJson(newChangedValues, newObjStr);
         }
-        if ("".equals(oldChangedValues.toString()) && "".equals(newChangedValues.toString())) return;
+
+        if (oldChangedValues.toString().isEmpty() && newChangedValues.toString().isEmpty()) {
+            return;
+        }
         logEntity.setOldObject(oldChangedValues.toString().getBytes());
         logEntity.setNewObject(newChangedValues.toString().getBytes());
         logRepo.saveAndFlush(logEntity);
@@ -105,13 +89,34 @@ public class LogChangesImpl implements LogChanges {
         return result;
     }
 
+    private void writeChangedValues(Map.Entry<String, JsonElement> entry, JsonObject newObjJson, StringBuilder oldChangedValues, StringBuilder newChangedValues) {
+        try {
+            String key = entry.getKey();
+            String curOldElem = "";
+            String curNewElem = "";
+            if (entry.getValue() != null) {
+                curOldElem = this.getJsonElementAsString(entry.getValue());
+            }
+            JsonElement newJsonElement = newObjJson.get(key);
+            if (newJsonElement != null) {
+                curNewElem = this.getJsonElementAsString(newJsonElement);
+            }
+            if (!curOldElem.equals(curNewElem) || "id".equals(key)) {
+                oldChangedValues.append(key).append(" = '").append(curOldElem).append("'").append("\n");
+                newChangedValues.append(key).append(" = '").append(curNewElem).append("'").append("\n");
+            }
+        } catch (UnsupportedOperationException e) {
+            log.error("Unsupported operation exception");
+        }
+    }
+
     private StringBuilder formatJson(StringBuilder stringBuilder, String jsonString) {
         try {
             JsonObject objJson = jsonParser.parse(jsonString).getAsJsonObject();
             Set<Map.Entry<String, JsonElement>> entrySet = objJson.entrySet();
             for (Map.Entry<String, JsonElement> entry : entrySet) {
                 String curElem = this.getJsonElementAsString(entry.getValue());
-                stringBuilder.append(entry.getKey() + " = '" + curElem + "'").append("\n");
+                stringBuilder.append(entry.getKey()).append(" = '").append(curElem).append("'").append("\n");
             }
         } catch (IllegalStateException e) {
             log.error("Write log: transform object to gson exception", e);
