@@ -20,26 +20,24 @@ public class EntityCreateServiceBase<ENTITY, DTO ,ID> implements EntityCreateSer
 
     private static final String USERNAME_PARAM_NAME = "username";
     private String DATABASE_FLUSH_ERROR = "Ошибка при сохранении изменений в базе";
-    private String DATA_INTEGRITY_ERROR            = "Данные не удовлетворяют ограничению целостности.";
-    private String CONFLICT_DATABASE_FLUSH_ERROR    = "Не удалось сохранить изменения из-за конфликта.";
     private String PARAM_UNIQUENESS_VIOLATION_ERROR = "Нарушено требование уникальности параметра при сохранении";
 
-
-    public EntityCreateServiceBase(BaseRepository<ENTITY, ID> repository, DtoEntityConverter<DTO, ENTITY> dtoEntityConverter, String entityName) {
+    public EntityCreateServiceBase(BaseRepository<ENTITY, ID> repository, DtoEntityConverter<DTO, ENTITY> dtoEntityConverter, LogChanges logChanges, String entityName) {
         this.repository = repository;
         this.dtoEntityConverter = dtoEntityConverter;
+        this.logChanges = logChanges;
         this.entityName = entityName;
     }
 
     @Override
-    public ENTITY createFromDto(DTO dto, HttpSession session) throws CRUDException {
+    public DTO createFromDto(DTO dto, HttpSession session) throws CRUDException {
         DTO createdDto;
         try {
             ENTITY entity = dtoEntityConverter.dtoToEntity(dto);
             ENTITY createdEntity = repository.saveAndFlush(entity);
             createdDto = dtoEntityConverter.entityToDto(createdEntity);
             logChanges.writeChangeLog(entityName, "Создание", (String) session.getAttribute(USERNAME_PARAM_NAME), null,  createdDto);
-            return createdEntity;
+            return createdDto;
         } catch (Exception e) {
             try {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
@@ -54,11 +52,5 @@ public class EntityCreateServiceBase<ENTITY, DTO ,ID> implements EntityCreateSer
         }
     }
 
-
-
-    @Autowired
-    public void setLogChanges(LogChanges logChanges) {
-        this.logChanges = logChanges;
-    }
 
 }

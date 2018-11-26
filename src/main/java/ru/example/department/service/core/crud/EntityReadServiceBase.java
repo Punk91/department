@@ -1,6 +1,7 @@
 package ru.example.department.service.core.crud;
 
 import ru.example.department.model.core.QueryResult;
+import ru.example.department.model.core.ReadRequest;
 import ru.example.department.repository.core.BaseRepository;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class EntityReadServiceBase<ENTITY, ID>  implements EntityReadService<ENT
     }
 
     @Override
-    public QueryResult<ENTITY> findAllByParams() {
+    public QueryResult<ENTITY> findAllByParams(ReadRequest readRequest) {
         return null;
     }
 
@@ -25,6 +26,6 @@ public class EntityReadServiceBase<ENTITY, ID>  implements EntityReadService<ENT
 
     @Override
     public ENTITY findById(ID id) {
-        return null;
+        return repository.getOne(id);
     }
 }

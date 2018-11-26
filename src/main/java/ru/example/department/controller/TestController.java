@@ -24,13 +24,13 @@ public class TestController {
     @PostMapping
     public RestResponse<TestDto> create(@RequestBody TestDto dto, HttpSession session) {
         TestEntity createdEntity = null;
+        TestDto testDto = null;
         try {
-            createdEntity = service.createFromDto(dto, session);
+            testDto = service.createFromDto(dto, session);
         } catch (CRUDException e) {
             e.printStackTrace();
         }
-        TestDto createdDto = converter.entityToDto(createdEntity);
-        return new RestResponse<>(createdDto);
+        return new RestResponse<>(testDto);
     }
 
 /*    @GetMapping
