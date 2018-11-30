@@ -1,4 +1,4 @@
-package ru.example.department.model.core;
+package ru.example.department.model.core.entity;
 
 import lombok.Data;
 

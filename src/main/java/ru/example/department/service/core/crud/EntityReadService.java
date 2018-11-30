@@ -1,7 +1,7 @@
 package ru.example.department.service.core.crud;
 
-import ru.example.department.model.core.QueryResult;
-import ru.example.department.model.core.ReadRequest;
+import ru.example.department.model.core.dto.QueryResult;
+import ru.example.department.model.core.dto.ReadRequest;
 
 import java.util.List;
 

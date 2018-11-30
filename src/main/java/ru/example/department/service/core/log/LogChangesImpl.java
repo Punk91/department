@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.example.department.model.core.LogEntity;
+import ru.example.department.model.core.entity.LogEntity;
 import ru.example.department.repository.core.LogRepo;
 
 import java.util.Calendar;

@@ -1,8 +1,8 @@
 package ru.example.department.service.core.crud;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.example.department.model.core.QueryResult;
-import ru.example.department.model.core.ReadRequest;
+import ru.example.department.model.core.dto.QueryResult;
+import ru.example.department.model.core.dto.ReadRequest;
 import ru.example.department.repository.core.BaseRepository;
 import ru.example.department.service.core.converter.DtoEntityConverter;
 import ru.example.department.service.core.log.LogChanges;

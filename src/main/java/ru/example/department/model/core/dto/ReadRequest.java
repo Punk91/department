@@ -1,4 +1,4 @@
-package ru.example.department.model.core;
+package ru.example.department.model.core.dto;
 
 import lombok.Data;
 import java.util.List;
