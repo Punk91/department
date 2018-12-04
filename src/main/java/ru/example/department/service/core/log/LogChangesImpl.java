@@ -53,9 +53,9 @@ public class LogChangesImpl implements LogChanges {
                 log.error("Write log: transform object to json exception", e);
             }
         } else if (oldObjStr != null) {
-            oldChangedValues = formatJson(oldChangedValues, oldObjStr);
+            this.formatJson(oldChangedValues, oldObjStr);
         } else {
-            newChangedValues = formatJson(newChangedValues, newObjStr);
+            this.formatJson(newChangedValues, newObjStr);
         }
 
         if (oldChangedValues.toString().isEmpty() && newChangedValues.toString().isEmpty()) {

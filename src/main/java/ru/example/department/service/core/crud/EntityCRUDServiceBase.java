@@ -53,7 +53,7 @@ public abstract class EntityCRUDServiceBase<ENTITY, DTO, ID> implements EntityCR
 
     @Override
     public QueryResult<ENTITY> findAllByParams(ReadRequest readRequest) {
-        return null;
+        return readService.findAllByParams(readRequest);
     }
 
     @Override
