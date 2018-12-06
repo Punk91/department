@@ -142,7 +142,7 @@ public class BaseSpecification<ENTITY> implements Specification<ENTITY> {
 
     private Predicate toPredicateFromList(Root root, Filter filter) {
         Predicate predicate = null;
-        List<Object> filterValues = (List<Object>) filter.getValues();
+        List<String> filterValues = filter.getValues();
         Expression expression = root.get(filter.getField());
         if (expression.getJavaType().isEnum()) {
             List enumList = new ArrayList<>();

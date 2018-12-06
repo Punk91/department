@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class Filter<T> {
+public class Filter {
 
     private FilterTypeEnum type;
     private String field;
