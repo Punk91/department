@@ -49,19 +49,19 @@ public class BaseSpecification<ENTITY> implements Specification<ENTITY> {
             }
             case DATE: {
                 try {
-                    Date date = BasicUtils.simpleDateFormat.get().parse((String) filter.getValue());
+                    Date date = BasicUtils.simpleDateFormat.get().parse((String) filter.getValues().get(0));
                     predicate = this.toDatePredicate(root, criteriaBuilder, filter, date);
                 } catch (ParseException e) {
-                    log.error("Parsing error : {}", filter.getValue(), e);
+                    log.error("Parsing error : {}", filter.getValues().get(0), e);
                 }
                 break;
             }
             case DATE_TIME: {
                 try {
-                    Date date = BasicUtils.simpleDateTimeFormat.get().parse((String) filter.getValue());
+                    Date date = BasicUtils.simpleDateTimeFormat.get().parse((String) filter.getValues().get(0));
                     predicate = this.toDatePredicate(root, criteriaBuilder, filter, date);
                 } catch (ParseException e) {
-                    log.error("Parsing error : {}", filter.getValue(), e);
+                    log.error("Parsing error : {}", filter.getValues().get(0), e);
                 }
                 break;
             }
@@ -71,7 +71,7 @@ public class BaseSpecification<ENTITY> implements Specification<ENTITY> {
             }
             case BOOLEAN: {
                 Path<Boolean> path = root.get(filter.getField());
-                predicate = criteriaBuilder.equal(path, filter.getValue());
+                predicate = criteriaBuilder.equal(path, filter.getValues().get(0));
                 break;
             }
             default:
@@ -84,20 +84,20 @@ public class BaseSpecification<ENTITY> implements Specification<ENTITY> {
     private Predicate toNumericPredicate(Root root, CriteriaBuilder criteriaBuilder, Filter filter) {
         Predicate predicate = null;
         switch (filter.getComparison()) {
-            case GREATER_THAN: {
-                Long value = Long.parseLong(filter.getValue().toString());
+            case GT: {
+                Long value = Long.parseLong((String) filter.getValues().get(0));
                 Path<Long> path = root.get(filter.getField());
                 predicate = criteriaBuilder.greaterThan(path, value);
                 break;
             }
-            case LESS_THAN: {
-                Long value = Long.parseLong(filter.getValue().toString());
+            case LT: {
+                Long value = Long.parseLong((String) filter.getValues().get(0));
                 Path<Long> path = root.get(filter.getField());
                 predicate = criteriaBuilder.lessThan(path, value);
                 break;
             }
-            case EQUAL: {
-                Long value = Long.parseLong(filter.getValue().toString());
+            case EQ: {
+                Long value = Long.parseLong((String) filter.getValues().get(0));
                 Path<Long> path = root.get(filter.getField());
                 predicate = criteriaBuilder.equal(path, value);
                 break;
@@ -111,24 +111,24 @@ public class BaseSpecification<ENTITY> implements Specification<ENTITY> {
 
     private Predicate toStringPredicate(Root root, CriteriaBuilder criteriaBuilder, Filter filter) {
         Path<String> path = root.get(filter.getField());
-        return criteriaBuilder.like(path, "%" + filter.getValue() + "%");
+        return criteriaBuilder.like(path, "%" + filter.getValues().get(0) + "%");
     }
 
 
     private Predicate toDatePredicate(Root root, CriteriaBuilder criteriaBuilder, Filter filter, Date date) {
         Predicate predicate = null;
         switch (filter.getComparison()) {
-            case GREATER_THAN: {
+            case GT: {
                 Path<Date> path = root.get(filter.getField());
                 predicate = criteriaBuilder.greaterThan(path, date);
                 break;
             }
-            case LESS_THAN: {
+            case LT: {
                 Path<Date> path = root.get(filter.getField());
                 predicate = criteriaBuilder.lessThan(path, date);
                 break;
             }
-            case EQUAL: {
+            case EQ: {
                 Path<Date> path = root.get(filter.getField());
                 predicate = criteriaBuilder.between(path, date, new Date(date.getTime()+24*60*60*1000));
                 break;
@@ -142,7 +142,7 @@ public class BaseSpecification<ENTITY> implements Specification<ENTITY> {
 
     private Predicate toPredicateFromList(Root root, Filter filter) {
         Predicate predicate = null;
-        List<Object> filterValues = (List<Object>) filter.getValue();
+        List<Object> filterValues = (List<Object>) filter.getValues();
         Expression expression = root.get(filter.getField());
         if (expression.getJavaType().isEnum()) {
             List enumList = new ArrayList<>();

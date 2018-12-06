@@ -6,10 +6,8 @@ import org.springframework.data.domain.Sort;
 import ru.example.department.model.core.dto.Filter;
 import ru.example.department.model.core.dto.QueryResult;
 import ru.example.department.model.core.dto.ReadRequest;
-import ru.example.department.model.core.dto.SortData;
 import ru.example.department.repository.core.BaseRepository;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class EntityReadServiceBase<ENTITY, ID>  implements EntityReadService<ENTITY, ID>  {
@@ -70,13 +68,11 @@ public class EntityReadServiceBase<ENTITY, ID>  implements EntityReadService<ENT
     private PageRequest preparePageRequest(ReadRequest readRequest) {
         PageRequest pageRequest;
         Sort sort = null;
-        if (readRequest.getSortList() != null) {
-            List<Sort.Order> orderList = new LinkedList<>();
-            for (SortData sortData : readRequest.getSortList()) {
-                orderList.add(new Sort.Order(Sort.Direction.valueOf(sortData.getDirection()), sortData.getProperty()));
-            }
-            sort = Sort.by(orderList);
+
+        if (readRequest.getSortData() != null) {
+            sort = new Sort(Sort.Direction.valueOf(readRequest.getSortData().getDirection()), readRequest.getSortData().getProperty());
         }
+
         if (sort != null) {
             pageRequest = PageRequest.of(readRequest.getPage() - 1, (readRequest.getSize() < 0 ? 1 : readRequest.getSize()), sort);
         } else {

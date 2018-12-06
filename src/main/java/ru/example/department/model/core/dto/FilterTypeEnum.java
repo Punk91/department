@@ -6,5 +6,5 @@ public enum FilterTypeEnum {
     DATE_TIME,
     STRING,
     LIST,
-    BOOLEAN;
+    BOOLEAN
 }

@@ -7,13 +7,13 @@ import java.util.List;
 public class ReadRequest {
     private Integer page;
     private Integer size;
-    private List<SortData> sortList;
+    private SortData sortData;
     private List<Filter> filterList;
 
-    public ReadRequest(Integer page, Integer size, List<SortData> sortList, List<Filter> filterList) {
+    public ReadRequest(Integer page, Integer size, SortData sortData, List<Filter> filterList) {
         this.page = page;
         this.size = size;
-        this.sortList = sortList;
+        this.sortData = sortData;
         this.filterList = filterList;
     }
 
@@ -23,7 +23,7 @@ public class ReadRequest {
         return "ReadRequest{" +
                 "page=" + page +
                 ", size=" + size +
-                ", sortList=" + sortList +
+                ", sortList=" + sortData +
                 ", filterList=" + filterList +
                 '}';
     }

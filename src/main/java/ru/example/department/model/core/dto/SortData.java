@@ -1,27 +1,18 @@
 package ru.example.department.model.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Data
 public class SortData {
 
     private String property;
     private String direction;
 
-    public String getProperty() {
-        return property;
-    }
-
-    public void setProperty(String property) {
+    public SortData(String property, String direction) {
         this.property = property;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
         this.direction = direction;
     }
 

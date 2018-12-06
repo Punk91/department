@@ -15,6 +15,7 @@ import ru.example.department.model.core.api.RestResponse;
 import ru.example.department.model.entity.TestEntity;
 import ru.example.department.service.TestService;
 import ru.example.department.service.converter.TestDtoEntityConverter;
+import ru.example.department.util.BasicUtils;
 import ru.example.department.util.CRUDException;
 
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/test/")
+@RequestMapping("/api/tests/")
 public class TestController {
 
     @Autowired
@@ -48,19 +49,10 @@ public class TestController {
     public ResponseEntity getTest (@RequestParam(value = "page") Integer page,
                                    @RequestParam(value = "size") Integer size,
                                    @RequestParam(value = "sort", required = false) String sort,
-                                   @RequestParam(value = "filter", required = false) String filter) throws IOException {
+                                   @RequestParam(value = "filters", required = false) String filters) throws IOException {
         List<SortData> sortList = null;
-        if (sort != null) {
-            sortList = objectMapper.readValue(sort, new TypeReference<List<SortData>>() {
-            });
-        }
-        List<Filter> filterList = null;
-        if (filter != null) {
-            filterList = objectMapper.readValue(filter, new TypeReference<List<Filter>>() {
-            });
-        }
 
-        ReadRequest readRequest = new ReadRequest(page, size, sortList, filterList);
+        ReadRequest readRequest = BasicUtils.mappingBasicReadRequest(page, size, sort, filters);
 
         QueryResult<TestEntity> queryResult = service.findAllByParams(readRequest);
         List<TestDto> dtoList = converter.entityListToDtoList(queryResult.getList());
